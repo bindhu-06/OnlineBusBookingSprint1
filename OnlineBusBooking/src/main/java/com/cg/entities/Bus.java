@@ -17,11 +17,18 @@ private String busNumber;
 	private int totalSeats;
 	private int fare;
 	
-	public Bus(String busNumber, int totalSeats, int fare) {
+	
+	public Bus(String busNumber, BusRoute busRoute, int totalSeats, int fare) {
 		super();
 		this.busNumber = busNumber;
+		this.busRoute = busRoute;
 		this.totalSeats = totalSeats;
 		this.fare = fare;
+		
+	}
+	public Bus(BusRoute busRoute) {
+		super();
+		this.busRoute = busRoute;
 	}
 	public Bus() {
 		super();
@@ -53,6 +60,12 @@ private String busNumber;
 	@Override
 	public String toString() {
 		return "Bus [busNumber=" + busNumber + ", totalSeats=" + totalSeats + ", fare=" + fare + "]";
+	}
+	public BusRoute getBusRoute() {
+		return busRoute;
+	}
+	public void setBusRoute(BusRoute busRoute) {
+		this.busRoute = busRoute;
 	}
 
 }
