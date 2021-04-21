@@ -2,7 +2,6 @@ package com.cg.entities;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,29 +13,38 @@ import javax.persistence.Table;
 public class BusOperatorRequest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int busoperatorrequestId;
+	
 	private int caseNumber;
 	private String busOperatorUsername;
-	private Bus bus;
 	private String requestMsg;
-	private String requestFor; 
-	private boolean status; 
+	private String requestFor; // Possible values deleteBus,update Fare,Change Route , Change Time
+	private boolean status; // approved = true , unapproved = false
 	private LocalDate requestDate;
-	public BusOperatorRequest(int caseNumber, String busOperatorUsername, Bus bus, String requestMsg, String requestFor,
-			boolean status, LocalDate requestDate) {
+	@OneToOne(mappedBy="busOperatorRequest")
+	private Bus bus;
+	public BusOperatorRequest(int busoperatorrequestId, int caseNumber, String busOperatorUsername, String requestMsg,
+			String requestFor, boolean status, LocalDate requestDate, Bus bus) {
 		super();
+		this.busoperatorrequestId = busoperatorrequestId;
 		this.caseNumber = caseNumber;
 		this.busOperatorUsername = busOperatorUsername;
-		this.bus = bus;
 		this.requestMsg = requestMsg;
 		this.requestFor = requestFor;
 		this.status = status;
 		this.requestDate = requestDate;
+		this.bus = bus;
 	}
 	public BusOperatorRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@OneToOne(cascade = CascadeType.ALL)
+	public int getBusoperatorrequestId() {
+		return busoperatorrequestId;
+	}
+	public void setBusoperatorrequestId(int busoperatorrequestId) {
+		this.busoperatorrequestId = busoperatorrequestId;
+	}
 	public int getCaseNumber() {
 		return caseNumber;
 	}
@@ -48,12 +56,6 @@ public class BusOperatorRequest {
 	}
 	public void setBusOperatorUsername(String busOperatorUsername) {
 		this.busOperatorUsername = busOperatorUsername;
-	}
-	public Bus getBus() {
-		return bus;
-	}
-	public void setBus(Bus bus) {
-		this.bus = bus;
 	}
 	public String getRequestMsg() {
 		return requestMsg;
@@ -79,10 +81,19 @@ public class BusOperatorRequest {
 	public void setRequestDate(LocalDate requestDate) {
 		this.requestDate = requestDate;
 	}
+	public Bus getBus() {
+		return bus;
+	}
+	public void setBus(Bus bus) {
+		this.bus = bus;
+	}
 	@Override
 	public String toString() {
-		return "BusOperatorRequest [caseNumber=" + caseNumber + ", busOperatorUsername=" + busOperatorUsername
-				+ ", bus=" + bus + ", requestMsg=" + requestMsg + ", requestFor=" + requestFor + ", status=" + status
-				+ ", requestDate=" + requestDate + "]";
+		return "BusOperatorRequest [busoperatorrequestId=" + busoperatorrequestId + ", caseNumber=" + caseNumber
+				+ ", busOperatorUsername=" + busOperatorUsername + ", requestMsg=" + requestMsg + ", requestFor="
+				+ requestFor + ", status=" + status + ", requestDate=" + requestDate + ", bus=" + bus + "]";
 	}
+	
+	
+	
 }
